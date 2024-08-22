@@ -1,0 +1,28 @@
+---
+  pagetitle: "EnerHabitat"
+  css: /CSS/inicio.css
+---
+
+# Desarrollo de Ener-Habitat {.unnumbered}
+
+Este sistema fue desarrollado con el sistema operativo Linux de Ubuntu 22.04.4, en conjunto con
+la herramienta de Shiny con un enfoque para Python para la elaboración de funciones y de la 
+interfaz. 
+
+![](/images/ubuntu.png){.ubuntu-image fig-alt="Ubuntu"}
+
+Brevemente se describirá la herramienta que se utilizó:
+
+## Shiny para Python
+Esta herramienta es eficaz, reactiva y robusta, Shiny es de ejecución reactiva, dicha funcionalidad 
+sirve para que los resultados se renderizen solo cuando cambian sus componentes ascendentes, capaz
+de admitir todo desde aplicaciones web simples a complejas (Foundation, Python, 2023).
+
+Una aplicación Shiny enfocada en Python es “una página web interactiva (ui) impulsada por una sesión 
+de Python en vivo ejecutada por un servidor”, esto permite que los usuarios pueden manipular la interfaz 
+de manera que el servidor actualice las pantallas del usuario mediante la ejecución de código Python, 
+(CC BY SA Posit Software, 2024).
+
+::: {.image-container}
+  ![](/images/shiny.png){.shiny-image fig-alt="Shiny"}
+:::

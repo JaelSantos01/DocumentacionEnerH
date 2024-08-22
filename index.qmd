@@ -1,0 +1,76 @@
+---
+pagetitle: "EnerHabitat"
+page-layout: custom
+section-divs: false
+toc: false
+css: CSS/index.css
+editor: source
+---
+
+::: {.hero-banner}
+::: {.content-block}
+
+::: {.hero-text}
+# Ener-Habitat {.mt-1}
+
+### Esta es la documentación de la renovación de Ener-Habitat 
+
+Ener-Habitat es una webapp que evalúa el desempeño térmico de muros/techos de la
+envolvente de una edificación bajo uso y no uso de aire acondicionado para diferentes
+ubicaciones. Así mismo resuelve la transferencia de calor en una dimensión dependiente
+del tiempo usando un método implícito y considerano eld clima, la orientación del sistema
+constructivo y el color por medio de la temperatura sol-aire.
+
+::: {.hero-buttons}
+[Empezar](/docs/index.qmd){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
+:::
+
+:::
+
+:::
+:::
+
+
+
+::: {.container}
+
+::: {.enerBefore}
+
+# Ener-Habitat, Before
+
+:::
+
+::: {.enerB}
+
+En esta documentación se presenta el proceso de migración de Ener-Habitat a Shiny de Python,
+cuidando que todo sea de licencia abierta, anteriormente el sistema se desarrolló con Jsp, MySQL, JavaScript.
+LLegando a un punto de saturación por la cantidad de datos que se han ingresado con el pasar del tiempo, haciendo que el sistema falle en repetidas ocasiones.
+
+<video autoplay muted playsinline loop>
+<source src="images/EnerHabitatBefore.mp4" type="video/mp4"/>
+</video>
+
+:::
+
+::: {.enerAfter}
+# Ener-Habitat, After
+
+:::
+
+::: {.enerA}
+
+<video autoplay muted playsinline loop>
+<source src="images/EnerHabitatAfter.mp4" type="video/mp4"/>
+</video>
+
+La nueva versión de Ener-Habitat usa gráficas interactivas, un menú más sencillo y
+responsivo y también elimina la necesidad de registro del usuario. La administración de la
+webapp se hace por medio de archivos .ini lo que facilita agregar nuevos climas agregando un
+archivo EPW. Donde dicho sistema fue desarrollado con Shiny que es una plataforma para crear webapps interactivas con principios de programación reactiva utilizando únicamente Python o R, ideal para crear proyectos de ciencia de datos y
+tableros interactivos.
+
+:::
+
+:::
+
+<br>

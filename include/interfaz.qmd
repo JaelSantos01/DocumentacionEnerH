@@ -1,0 +1,134 @@
+---
+    pagetitle: Interfaz
+---
+
+# Desarrollo de la Interfaz
+A continuación explicará el desarrollo de la interfaz de Ener-Habitat:
+
+La declaración de app_ui, sirve para definir la interfaz del usuario, donde se describirá 
+la vista de la aplicación, es decir, los elementos interactivos (botones, gráficas, tablas, etc.) 
+que estarán presentes y como estarán organizados.
+
+
+````markdown
+## Ejemplo para conocer el uso de app_ui
+from Shiny import App, ui, render, reactive 
+
+app_ui = ui.page_fluid("Hello Shiny!")
+
+def server(input, output, session):
+
+app = App(app_ui, server)
+````
+## Parte 1 
+Una vez, explicado el uso de app_ui en Shiny, se comenzará con el desarrollo de la interfaz, declarando 
+una ui.page_sidebar, junto con un acordeón, para generar una barra lateral indicando el nombre del sistema en 
+este caso "Ener-Habitat", y para colocar en el primer acordeón una función que contendrá varios inputs para que el usuario seleccione cada condición con la cual se generará el gráfico de la simulación, dependiendo el tipo de sistema que desee realizar: 
+
+````markdown
+## Parte de la interfaz, que manda a llamar la función 
+## "left_controls"
+from Shiny import App, ui, render, reactive 
+
+app_ui = ui.page_sidebar(
+    ui.sidebar(
+        ui.accordion(
+            ui.accordion_panel(
+                "Cambios",
+                ui.output_ui("left_controls"),
+            ),
+        ),
+    )
+)        
+````
+## Parte 2
+Continuando con el desarrollo de la interfaz, se declaró un segundo acordeón que contendrá otra sección de inputs, 
+mostrado cada uno en la función "controls_top", junto con un input selector, para seleccionar el tipo de sistema
+"Con capa homogénea" y/o "Sin capa homogénea" (la cual aún sigue en desarrollo). 
+LLamando a una lista de diccionarios, junto con un input númerico el cual el usuario seleccionará el número de sistemas
+que desea realizar (como minímo 1, de 1 en 1, máximo 5), y por último, un nuevo acordeón que manda a llamar la función 
+"controls_rigth", junto con un botón que contará las simulaciones realizadas. 
+
+````markdown
+## Parte de la interfaz, que manda a llamar la función 
+## "controls_top" & "controls_rigth"
+from Shiny import App, ui, render, reactive 
+
+app_ui = ui.page_sidebar(
+
+    ui.accordion(
+        ui.accordion_panel(
+            "Selección",
+            ui.output_ui("controls_top"),
+                ui.input_select(  
+                    "type",  
+                    "Tipo de sistema:",  
+                    choices= list(type_sistem.keys()),  
+                ),
+        ),
+    ),
+    ui.input_numeric("sistemas", "Número de sistemas:", 
+    value=1, min=1, max=5),  
+    ui.accordion(
+        ui.accordion_panel(
+            "Datos",
+            ui.output_ui("controls_rigth")
+        )
+    ),
+    ui.input_action_button("update", "correr"),
+),        
+````
+## Parte 3 
+Para comenzar con la parte de la interfaz, donde se visualizará un panel por cada sección de los graficos, tablas, etc. 
+Se declaró un ui.navset_card_underline, para dividir cada seccion con paneles (nav.panel), los cuales contendrán diferentes secciones de información visible para el usuario como: la gráfica de **temperatura**, la segunda gráfica de **radiación**, los **resultados**, el **DataFrame** junto con el **botón de descarga** y por último el panel de la **documentación**.
+
+::: {.callout-note appearance="simple"}
+[Ejemplo de uso ui.navset_card_underline:](https://shiny.posit.co/py/api/core/ui.navset_card_underline.html#)
+:::
+
+````markdown
+## Parte de la interfaz, que renderiza cada sección 
+## de panel con el nombre "Datos Graficados"
+from Shiny import App, ui, render, reactive 
+
+app_ui = ui.page_sidebar(
+
+    ui.navset_card_underline(
+        ui.nav_panel("Temperaturas", output_widget("temperatura")),
+        ui.nav_panel("Radiación", output_widget("radiacion")),
+        ui.nav_panel("Resultados", ui.output_text("resultados")),
+        ui.nav_panel("Datos", ui.output_data_frame("get_day_data"),
+        ui.download_button("downloadData", "Download")),
+        ui.nav_panel("Documentacion", ui.output_ui("documentacion")),
+
+        title="Datos Gráficados",
+    ),
+
+    ui.include_css(app_dir / "styles.css"),
+    fillable=True,
+),        
+````
+Donde la parte inferior contiene la declaración y ubicación del archivo css para el tipo de estilo que contiene la interfaz, al igual que permitimos con "fillable = True" que el usuario ingrese o edite datos en ese campo.
+
+## Parte Final
+Para terminar con el desarrollo de la interfaz, se generó un div para indicar que el título de la interfaz seria "Renovacion de Ener-Habitat" e indicandole que junto con el título se anadiria una imagen que redireccionara a la presente documentación.
+
+````markdown
+## Parte final de la interfaz
+
+from Shiny import App, ui, render, reactive 
+
+app_ui = ui.page_sidebar(
+
+    title=ui.tags.div(
+        "Renovacion de Ener-Habitat",
+        ui.a(
+            ui.img(src="logo.png", 
+            height="25px", width="25px"),
+            href="https://example.com",
+            target="_blank",
+            style="margin-left: 10px;" 
+        ),
+    ),
+),        
+````

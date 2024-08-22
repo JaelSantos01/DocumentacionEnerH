@@ -1,0 +1,356 @@
+---
+    pagetitle: Renderizar en el server
+---
+# Funciones para las iteracciones
+Las siguientes funciones se generaron para ser visualizadas(renderizadas) por el usuario, debido a que las funciones que se mostrarán y explicarán a continuación van dentro de la función server, las cuales estarán en iteracción con el usuario.
+
+## Función server   
+La función server en Shiny para Python define cómo la aplicación responde a las interacciones del usuario y genera salidas dinámicas, haciendo que la aplicación sea interactiva y reactiva.
+
+````markdown
+def server(input, output, session):
+````
+## Función del modal de presentación
+La función que se muestra a continuación es llamada para ser mostrado al comienzo del sistema, la cual visualizará un modal de inicio, dependiendo si está en True o en False. 
+Si la función está en **False**, entonces el modal de inicio no se mostrará, más si está en **True** entonces lo podremos visualizar.
+
+````markdown
+    present_news(False)
+````
+
+## Función para contar las simulaciones
+Esta función tiene un evento al momento de que el botón "update", se seleccione.
+El evento que realiza esta función es que obtenga el número de veces que se dió clic al botón para poder hacer un conteo de las simulaciones realizadas, donde la función de inserción a la base de datos es llamada, al igual que el tipo de sistema que el usuario seleccionó y la condición ("Con aire acondicionado & Sin aire acondicionado").
+
+````markdown
+    @reactive.effect
+    @reactive.event(input.update)
+    def increment():
+        type = input.type()
+        condition = input.Conditional() 
+        bd = True
+        insert_db(type, condition,bd)
+````
+
+## Función para generar la línea Ti
+La función generá un nuevo data para agregar la línea Ti, al momento de que el botón sea presionado.
+Para que se generé el nuevo data, se necesita obtener el valor de las variables que se muestran en la función.
+
+````markdown
+reactive_data = reactive.Value(pd.DataFrame(columns=['Fecha_Hora']))
+
+    @reactive.effect
+    def _():
+        req(input.update())
+        place = input.place()
+        ruta_epw = ruta(place)
+        mes = meses_dict[input.periodo()]
+        caracteristicas = cargar_caracteristicas(place)
+        absortancia = input.absortancia_value()
+        surface_tilt = location[input.ubicacion()]
+        surface_azimuth = orientacion[input.orientacion()]
+        
+        dia = btn_run(
+            ruta_epw,
+            caracteristicas['lat'],
+            caracteristicas['lon'],
+            caracteristicas['alt'],
+            mes,
+            absortancia,
+            surface_tilt,
+            surface_azimuth,
+            timezone  
+        )
+        
+        reactive_data.set(dia)
+````
+## Función para visualizar "left_controls"
+Esta función renderiza y/o retorna a otra función que en este caso tiene por nombre "controls_left", a la cual se le da el tipo de sistema, lugar, mes, ubicación, orientación y la absortancia que el usuario seleccione, para poder agregar los inputs correspodientes a la validación de la función renderizada.
+
+````markdown
+    @output
+    @render.ui
+    def left_controls():
+        type = type_sistem[input.type()]
+        return controls_left(type, 
+                        lugares, 
+                        meses_dict, 
+                        location, 
+                        orientacion, 
+                        Absortancia)
+````
+
+## Función para visualizar "ubicacion_orientacion"
+Esta función renderiza la función que dependiendoo a la ubicación seleccionada por el usuario, la orientación será mostrada u ocultada.
+
+````markdown
+    @output
+    @render.ui
+    def ubicacion_orientacion():
+        ubicacion = input.ubicacion()
+        return orientacion_disable(ubicacion, 
+        orientacion, Absortancia)
+````
+
+## Función para visualizar el valor de la Abosrtancia
+Al igual que lo anterior, la siguiente función renderiza (visualiza) la abortancia seleccionada por el usuario para ser visualizado el valor de la misma en el input numérico que se creó.
+
+````markdown
+    @output
+    @render.ui
+    def absortancia_f():
+        selected = input.absortancia()
+        value = Absortancia.get(selected, 0.01)
+        return absortance_value(value)
+````
+
+## Función para visualizar "controls_top"
+Esta función retorna la función que genera la sección "Selección"
+
+````markdown
+    @output
+    @render.ui
+    def controls_top():
+        type =  type_sistem[input.type()]
+        return top_controls(type)
+````
+
+## Función para visualizar "controls_rigth"
+La siguiente función muestra al usuario la sección "Datos", donde depende al tipo de sistema se genera la sección con inputs.
+
+````markdown
+    @output
+    @render.ui
+    def controls_rigth():
+        type =  type_sistem[input.type()]
+        return rigth_controls(type, materiales)
+````
+
+## Función para visualizar "campos"
+Al igual que lo anterior, dependiendo al numero de sistemas que el usuario seleccione entonces la función llamada es la que genera los sistemas con el input para determinar la cantidad de capas. 
+
+````markdown
+    @output
+    @render.ui
+    def campos():
+        num = input.sistemas()
+        return f_sistemas(num)
+````
+
+## Función para visualizar el numero de capas
+Esta función complementa lo anterior, que es mandar a llamar a la función "info_capa#" para generar las capas ingresadas por el usuario, 
+
+````markdown
+    @output
+    @render.ui
+    def num_capas1():
+        sistemas = input.sistemas() 
+        capa = input.capa_1()
+        return info_capa1(capa,materiales,sistemas)
+````
+
+## Función para visualizar la gráfica "Temperatura"
+La siguiente función visualiza la gráfica "Temperatura", donde se obtienen los datos necesarios para poder generar el gráfico, haciendo el cálculo correcto.
+
+````markdown
+    @output
+    @render_plotly
+    def temperatura():
+        place = input.place()
+        ruta_epw = ruta(place)
+        mes = meses_dict[input.periodo()]
+        caracteristicas = cargar_caracteristicas(place)
+        absortancia = input.absortancia_value() 
+        surface_tilt = location[input.ubicacion()]  
+        surface_azimuth = orientacion[input.orientacion()] 
+
+        if input.update():
+            dia =btn_run(
+                ruta_epw,
+                caracteristicas['lat'],
+                caracteristicas['lon'],
+                caracteristicas['alt'],
+                mes,
+                absortancia,
+                surface_tilt,
+                surface_azimuth,
+                timezone
+            )
+            
+            fig = plot_T_I(dia)
+        else:
+            dia = calculate_day(
+                ruta_epw,
+                caracteristicas['lat'],
+                caracteristicas['lon'],
+                caracteristicas['alt'],
+                mes,
+                absortancia,
+                surface_tilt,
+                surface_azimuth,
+                timezone
+            )
+
+            fig = plot_T(dia)
+
+        return fig
+````
+
+## Función para visualizar la gráfica "Radiación"
+Esta función visualiza la gráfica "Radiación" generada en la función "plot_I", la cual contiene parametros para poder generar los cálculos correctos para la elaboración de la misma, dependiendo los datos que el usuario ingrese.
+
+````markdown
+    @output
+    @render_plotly
+    def radiacion():
+        place = input.place()
+        ruta_epw = ruta(place)
+        mes = meses_dict[input.periodo()]
+        caracteristicas = cargar_caracteristicas(place)
+        absortancia = input.absortancia_value() 
+        surface_tilt = location[input.ubicacion()] 
+        surface_azimuth = orientacion[input.orientacion()]
+
+        dia = calculate_day(
+            ruta_epw,
+            caracteristicas['lat'],
+            caracteristicas['lon'],
+            caracteristicas['alt'],
+            mes,
+            absortancia,
+            surface_tilt,
+            surface_azimuth,
+            timezone
+        )
+        
+        fig = plot_I(dia)
+        return fig
+````
+
+## Función para visualizar los resultados
+Esta función muestra el valor de cada elemento que el usuario interectuará, esto con el motivo de conocer que el todo estaba funcionando correctamente. 
+
+::: {.callout-note appearance="simple"}
+Esta función aún esta en desarrollo, no es la final.
+:::
+
+````markdown
+    @output
+    @render.text
+    def resultados():
+        lugar = input.place()
+        mes = input.periodo()
+        ubicacion = input.ubicacion()
+        orienta = input.orientacion()
+        abs = input.absortancia()
+        sistemas = input.sistemas()
+        condicion = input.Conditional()
+        tipo =  type_sistem[input.type()]
+
+        resultado = f"Lugar: {lugar}, Mes: {mes}, 
+        Ubicacion: {ubicacion}, Orientacion: {orienta}, 
+        Absortancia: {abs}, Sistemas: {sistemas}, 
+        Condicion: {condicion}, Tipo de sistema: {tipo}"
+
+        return resultado
+````
+## Función para visualizar el DataFrame
+Esta función muestra los datos que contiene el DataFrame en una tabla, dependiendo de si el usuario da clic al botón, entonces los datos + la línea Ti graficada se mostrará, pero si el botón no es seleccionado, entonces se mostrará el DataFrame que se uso para graficar "Temperatura & Radiación".
+Insertando una columna para index, donde me diga la fecha junto con la hora.
+
+````markdown
+    @output
+    @render.data_frame
+    def get_day_data():
+        if input.update():
+            result = reactive_data.get()
+            data_to_show = result[::3600].reset_index()
+            data_to_show['Fecha_Hora'] = data_to_show['Fecha_Hora'].dt.strftime('%Y-%m-%d %H:%M:%S')
+        else:
+            place = input.place()
+            ruta_epw = ruta(place)  
+            mes = meses_dict[input.periodo()]  
+            caracteristicas = cargar_caracteristicas(place)  
+            absortancia = Absortancia[input.absortancia()]  
+            surface_tilt = location[input.ubicacion()] 
+            surface_azimuth = orientacion[input.orientacion()]  
+        
+            result = data_frame(
+                ruta_epw,
+                caracteristicas['lat'],
+                caracteristicas['lon'],
+                caracteristicas['alt'],
+                mes,
+                absortancia,
+                surface_tilt,
+                surface_azimuth,
+                timezone
+            )
+            
+            data_to_show = result[::3600].reset_index() 
+            data_to_show['Fecha_Hora'] = data_to_show['Fecha_Hora'].dt.strftime('%Y-%m-%d %H:%M:%S')
+
+        return data_to_show
+````
+## Función para la descarga del DataFrame
+Esta función permité que al momento de que el usuario da clic al botón de descarga que está en la sección de "Datos", donde se muestra el DataFrame, los datos que se contienen se descargarán en CSV, al igual que si se agrega la línea Ti. 
+
+````markdown
+    @render.download(
+        filename=lambda: f"data-{date.today().isoformat()}.csv"
+    )
+    async def downloadData():
+        if input.update():
+            data = reactive_data.get()
+
+            data_= data[::3600].reset_index() 
+            csv_buffer = StringIO()
+            data_.to_csv(csv_buffer,index=True)
+            csv_buffer.seek(0)
+        else: 
+            place = input.place()
+            ruta_epw = ruta(place)  
+            mes = meses_dict[input.periodo()]  
+            caracteristicas = cargar_caracteristicas(place) 
+            absortancia = Absortancia[input.absortancia()]  
+            surface_tilt = location[input.ubicacion()] 
+            surface_azimuth = orientacion[input.orientacion()]  
+
+            data = data_frame(
+                ruta_epw,
+                caracteristicas['lat'],
+                caracteristicas['lon'],
+                caracteristicas['alt'],
+                mes,
+                absortancia,
+                surface_tilt,
+                surface_azimuth,
+                timezone
+            )
+        
+            data_= data[::3600].reset_index() 
+            csv_buffer = StringIO()
+            data_.to_csv(csv_buffer,index=True)
+            csv_buffer.seek(0)
+            
+        await asyncio.sleep(0.25)
+        yield csv_buffer.read()
+````
+## Función para mostrar la documentación
+Función que visualiza la documentación realizada en HTMLTools. Misma que será modificada para que contenga la documentación del uso del sistema. 
+````markdown
+    @output
+    @render.ui
+    def documentacion():
+        return respiratory_diseases_app()
+````
+
+## Declaraciones finales
+Las siguientes líneas deben declararse para crear y ejecutar la aplicación web.
+
+````markdown
+app = App(app_ui, server)
+
+if __name__ == "__main__":
+    app.run()
+````

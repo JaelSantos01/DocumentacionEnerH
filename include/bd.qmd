@@ -1,0 +1,126 @@
+---
+    pagetitle: Creación para la base de datos
+    css: /CSS/inicio.css
+---
+
+# Configuración de la base de datos
+Los datos que se contiene en la función, cambian en relación a la configuración que se genere al descargar MySQl, puesto que puede contener o no una contraseña e incluso puede ser diferente. 
+En relación a dicha función es esencial y es la principal para poder hacer inserciones a la base de datos. 
+
+````markdown
+db_config = {
+    'user': 'root',
+    'password': 'root',
+    'host': 'localhost',
+    'database': 'enerhabitat',
+    'port': 3306
+}
+````
+
+## Insertar el conteo en la Base de Datos
+Esta función fue creada para generar la inserción de cada simulación que se genere en la base de datos.
+Principalmente se creó para el usuario administrador, puesto que es almacenada cada simulación que se tenga anual, mensual y por condición ("con aire acondicionado & Sin aire acondicionado").
+
+````markdown
+def insert_db(type, condition, bd):
+    if bd is False:
+        print("La ejecución de la base de datos se apagó")
+    else:
+        connection = mysql.connector.connect(**db_config)
+        cursor = connection.cursor()
+        query = """
+        INSERT INTO simulations (id_num, date_count, type_simulation, 
+        type_conditional)
+        VALUES (%s, %s, %s, %s);
+        """
+        params = (0, date_time.date(), type, condition)
+        cursor.execute(query, params)
+        connection.commit()
+        cursor.close()
+        connection.close()
+````
+
+# Introducción a MySQL 
+A continuación se explicará la instalación de MySQL, para crear y tener la base de datos, almacenando el conteo de simulaciones que se generen. 
+
+## Instalación de MySQL en Linux
+Abre una nueva terminal, e ingresar lo siguiente: 
+````markdown
+## Comando para instalar mysql
+sudo apt-get install mysql-server
+
+## comando para verificar la instalación
+mysql --version
+````
+## Acceder a MySQL desde la terminal 
+````markdown
+## Entramos al super usuario
+sudo su
+
+## Ingresar a MySQL
+mysql -u root -p
+````
+Como al instalar MySQL no se colocó una contraseña, no se coloca nada cuando pide la contraseña, solo debes darle enter y podrás entrar. 
+
+````markdown
+## Actualizar para poder descargar
+apt update
+apt upgrade
+````
+
+## Instalación de Worbeench
+Para eso debemos buscar a "Ubuntu software", la tienda de aplicaciones. 
+Y buscamos "workbeench" para descargar MySQL Workbeench Community e instalamos.  
+
+Una vez instalado, debemos ingresar en la parte de "Permisos", para darle permiso de leer, agregar, cambiar, o remover contraseñas. 
+
+![](/images/workbeench.png){.work-image fig-alt="Worbeench"}
+
+
+Una vez instalado, volvemos a la terminal en modo super usuario: 
+
+## Configuración para MySQL
+La contraseña y/o usuario puede ser cambiado a elección, sin embargo tanto como el usuario y la contraseña, no deben ser olvidadas y estas deben ser colocadas en la parte de configuración de la base de datos.
+
+**usuario** = root
+**servidor** = localhost
+**password** = 123456
+
+````markdown
+## Ingresamos a MySQL
+mysql -u root -p 
+
+## Creamos el usuario root y su respectiva contraseña
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+````
+Al momento de realizar lo anterior, para usar MySQL desde Workbeench la aplicación anterior de Workbeench se abre y se coloca la contraseña que se creó desde la terminal
+
+::: {.callout-note appearance="simple"}
+[Tutorial](https://github.com/alexroel/tutoriales/blob/master/instalar-mysql.md)
+:::
+
+# Listo!! MySQL ya está lista para ser usada :D
+En este caso para que la base de datos se cree, es necesario seguir los siguiente pasos: 
+
+````markdown
+## Comando para crear una base de datos
+create database enerhabitat;
+
+## Comando para usar la base de datos creada
+use enerhabitat;
+
+## Comnado crear la tabla para almacenar las simulaciones
+create table simulations (
+	id_num integer primary key auto_increment not null, 
+    date_count date not null, 
+    type_simulation varchar(75) not null,
+    type_conditional varchar (75) not null 
+);
+
+## Comando para visualizar la tabla completa
+select * from simulations;
+````
+
+::: {.callout-note appearance="simple"}
+La instalación de Workbeench es opcional, ya que solo es una interfaz gráfica mejorada para poder acceder a mysql.
+:::

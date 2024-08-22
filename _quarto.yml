@@ -1,0 +1,60 @@
+project:
+  type: website
+  output-dir: docs
+website:
+  title: "Doc de Ener-Habitat"
+  image: "images/enerhabitat.jpg"
+  favicon: "images/logo_edited.png"
+  page-navigation: true
+  search: 
+    show-item-context: true
+    type: overlay
+  page-footer: 
+    left: |
+      Derechos de autor . 2024 Documentación de Ener-Habitat
+  navbar:
+    background: light
+    logo: images/enerhabitat.jpg
+    logo-alt: "EnerHabitat logo."
+    title: false
+    collapse-below: xl
+    left:
+      - text: "Inicio"
+        href: index.qmd
+    tools:
+      - icon: github
+        href:  https://altamarmx.github.io/blog/2022/cursoPython/
+        text: Learn Python
+    
+  sidebar: 
+  - id: get-started
+    text: "Empezar"
+    style: floating
+    collapse-level: 2
+    align: left
+    contents:
+        - docs/index.qmd
+        - text: "Desarrollo de interfaz"
+          href: docs/interfaz.qmd
+        - text: "Diccionarios"
+          href: docs/diccionaries.qmd
+        - text: "Archivos creados"
+          href: docs/archivos.qmd
+        - text: "Funciones generales"
+          href: docs/funciones.qmd
+        - text: "Funciones del server"
+          href: docs/server.qmd
+        - text: "Base de datos"
+          href: docs/bd.qmd
+
+format:
+  html:
+    light: [cosmo, theme.scss]
+    toc: true
+    code-copy: true
+
+freeze: true
+
+
+
+
