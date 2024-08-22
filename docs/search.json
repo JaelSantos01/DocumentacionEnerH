@@ -307,8 +307,8 @@
     ]
   },
   {
-    "objectID": "include/diccionaries.html#diccionarios-ubicacion-orientacion-y-tipo-de-sistema",
-    "href": "include/diccionaries.html#diccionarios-ubicacion-orientacion-y-tipo-de-sistema",
+    "objectID": "include/diccionaries.html#diccionarios-ubicación-orientación-y-tipo-de-sistema",
+    "href": "include/diccionaries.html#diccionarios-ubicación-orientación-y-tipo-de-sistema",
     "title": "Diccionarios",
     "section": "",
     "text": "Por último se crearon los diccionarios correspondientes a la ubicación del sistema constructivo, orientación del mismo y el tipo de sistema a analizar.\nlocation={\n    \"Muro\": 90,\n    \"Techo\": 0,\n}\n\norientacion = {\n    \"Norte\": 0,\n    \"Noreste\": 45,\n    \"Este\": 90, \n    \"Sureste\": 135, \n    \"Sur\": 180,\n    \"Suroeste\": 225, \n    \"Oeste\": 270, \n    \"Noroeste\": 315,\n}\n\ntype_sistem = {\n    \"Con capa homogenea\" : 1,\n    \"Sin capa homogenea\" : 2,\n}\nA continuación se muestra su uso en el sistema:",

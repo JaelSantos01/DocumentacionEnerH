@@ -69,7 +69,7 @@ A continuación se muestra su uso en el sistema:
 </video>
 
 
-## Diccionarios ubicacion, orientacion y tipo de sistema
+## Diccionarios ubicación, orientación y tipo de sistema
 Por último se crearon los diccionarios correspondientes a la ubicación del sistema constructivo, orientación del mismo y el tipo de sistema a analizar. 
 
 ````markdown
