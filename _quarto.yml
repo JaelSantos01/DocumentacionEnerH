@@ -33,19 +33,19 @@ website:
     collapse-level: 2
     align: left
     contents:
-        - docs/index.qmd
+        - include/index.qmd
         - text: "Desarrollo de interfaz"
-          href: docs/interfaz.qmd
+          href: include/interfaz.qmd
         - text: "Diccionarios"
-          href: docs/diccionaries.qmd
+          href: include/diccionaries.qmd
         - text: "Archivos creados"
-          href: docs/archivos.qmd
+          href: include/archivos.qmd
         - text: "Funciones generales"
-          href: docs/funciones.qmd
+          href: include/funciones.qmd
         - text: "Funciones del server"
-          href: docs/server.qmd
+          href: include/server.qmd
         - text: "Base de datos"
-          href: docs/bd.qmd
+          href: include/bd.qmd
 
 format:
   html:
