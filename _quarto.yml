@@ -33,7 +33,7 @@ website:
     collapse-level: 2
     align: left
     contents:
-        - include/index.qmd
+        - href: include/inicio.qmd
         - text: "Desarrollo de interfaz"
           href: include/interfaz.qmd
         - text: "Diccionarios"

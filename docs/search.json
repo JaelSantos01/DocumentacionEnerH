@@ -317,8 +317,8 @@
     ]
   },
   {
-    "objectID": "include/index.html",
-    "href": "include/index.html",
+    "objectID": "include/inicio.html",
+    "href": "include/inicio.html",
     "title": "Desarrollo de Ener-Habitat",
     "section": "",
     "text": "Este sistema fue desarrollado con el sistema operativo Linux de Ubuntu 22.04.4, en conjunto con la herramienta de Shiny con un enfoque para Python para la elaboración de funciones y de la interfaz.\n\nBrevemente se describirá la herramienta que se utilizó:\n\n\nEsta herramienta es eficaz, reactiva y robusta, Shiny es de ejecución reactiva, dicha funcionalidad sirve para que los resultados se renderizen solo cuando cambian sus componentes ascendentes, capaz de admitir todo desde aplicaciones web simples a complejas (Foundation, Python, 2023).\nUna aplicación Shiny enfocada en Python es “una página web interactiva (ui) impulsada por una sesión de Python en vivo ejecutada por un servidor”, esto permite que los usuarios pueden manipular la interfaz de manera que el servidor actualice las pantallas del usuario mediante la ejecución de código Python, (CC BY SA Posit Software, 2024).",
@@ -327,8 +327,8 @@
     ]
   },
   {
-    "objectID": "include/index.html#shiny-para-python",
-    "href": "include/index.html#shiny-para-python",
+    "objectID": "include/inicio.html#shiny-para-python",
+    "href": "include/inicio.html#shiny-para-python",
     "title": "Desarrollo de Ener-Habitat",
     "section": "",
     "text": "Esta herramienta es eficaz, reactiva y robusta, Shiny es de ejecución reactiva, dicha funcionalidad sirve para que los resultados se renderizen solo cuando cambian sus componentes ascendentes, capaz de admitir todo desde aplicaciones web simples a complejas (Foundation, Python, 2023).\nUna aplicación Shiny enfocada en Python es “una página web interactiva (ui) impulsada por una sesión de Python en vivo ejecutada por un servidor”, esto permite que los usuarios pueden manipular la interfaz de manera que el servidor actualice las pantallas del usuario mediante la ejecución de código Python, (CC BY SA Posit Software, 2024).",

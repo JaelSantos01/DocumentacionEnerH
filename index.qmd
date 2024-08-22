@@ -22,7 +22,7 @@ del tiempo usando un método implícito y considerano eld clima, la orientación
 constructivo y el color por medio de la temperatura sol-aire.
 
 ::: {.hero-buttons}
-[Empezar](/docs/index.qmd){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
+[Empezar](include/inicio.qmd){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
 :::
 
 :::
