@@ -46,6 +46,11 @@ A continuación se explicará la instalación de MySQL, para crear y tener la ba
 ## Instalación de MySQL en Linux
 Abre una nueva terminal, e ingresar lo siguiente: 
 ````markdown
+## Comando para actualizar los paquetes
+sudo apt-get update
+
+sudo apt-get upgrade
+
 ## Comando para instalar mysql
 sudo apt-get install mysql-server
 
@@ -60,12 +65,20 @@ sudo su
 ## Ingresar a MySQL
 mysql -u root -p
 ````
+
 Como al instalar MySQL no se colocó una contraseña, no se coloca nada cuando pide la contraseña, solo debes darle enter y podrás entrar. 
 
+::: {.callout-note appearance="simple"}
+Si nos sale el siguiente error "Can't connect to local MySQL server", debemos activar a MySQL de la siguiente forma:
+:::
+
+## Posible Error de inactividad
 ````markdown
-## Actualizar para poder descargar
-apt update
-apt upgrade
+## Comando para verificar si MySQL esta activo u inactivo
+sudo systemctl status mysql
+
+## Comnado para activar MySQL
+sudo systemctl start mysql
 ````
 
 ## Instalación de Worbeench
@@ -77,7 +90,7 @@ Una vez instalado, debemos ingresar en la parte de "Permisos", para darle permis
 ![](/images/workbeench.png){.work-image fig-alt="Worbeench"}
 
 
-Una vez instalado, volvemos a la terminal en modo super usuario: 
+Una vez instalado MySQL, volvemos a la terminal en modo super usuario: 
 
 ## Configuración para MySQL
 La contraseña y/o usuario puede ser cambiado a elección, sin embargo tanto como el usuario y la contraseña, no deben ser olvidadas y estas deben ser colocadas en la parte de configuración de la base de datos.
@@ -119,6 +132,9 @@ create table simulations (
 
 ## Comando para visualizar la tabla completa
 select * from simulations;
+
+## Comando para salir de MySQL
+quit;
 ````
 
 ::: {.callout-note appearance="simple"}

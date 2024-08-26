@@ -212,6 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#instalación-de-mysql-en-linux" id="toc-instalación-de-mysql-en-linux" class="nav-link" data-scroll-target="#instalación-de-mysql-en-linux">Instalación de MySQL en Linux</a></li>
   <li><a href="#acceder-a-mysql-desde-la-terminal" id="toc-acceder-a-mysql-desde-la-terminal" class="nav-link" data-scroll-target="#acceder-a-mysql-desde-la-terminal">Acceder a MySQL desde la terminal</a></li>
+  <li><a href="#posible-error-de-inactividad" id="toc-posible-error-de-inactividad" class="nav-link" data-scroll-target="#posible-error-de-inactividad">Posible Error de inactividad</a></li>
   <li><a href="#instalación-de-worbeench" id="toc-instalación-de-worbeench" class="nav-link" data-scroll-target="#instalación-de-worbeench">Instalación de Worbeench</a></li>
   <li><a href="#configuración-para-mysql" id="toc-configuración-para-mysql" class="nav-link" data-scroll-target="#configuración-para-mysql">Configuración para MySQL</a></li>
   </ul></li>
@@ -262,11 +263,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="instalación-de-mysql-en-linux" class="level2">
 <h2 class="anchored" data-anchor-id="instalación-de-mysql-en-linux">Instalación de MySQL en Linux</h2>
 <p>Abre una nueva terminal, e ingresar lo siguiente:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comando para instalar mysql</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sudo apt-get install mysql-server</span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comando para actualizar los paquetes</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sudo apt-get update</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## comando para verificar la instalación</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>mysql --version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>sudo apt-get upgrade</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comando para instalar mysql</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>sudo apt-get install mysql-server</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## comando para verificar la instalación</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>mysql --version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="acceder-a-mysql-desde-la-terminal" class="level2">
 <h2 class="anchored" data-anchor-id="acceder-a-mysql-desde-la-terminal">Acceder a MySQL desde la terminal</h2>
@@ -276,16 +282,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ingresar a MySQL</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>mysql -u root -p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Como al instalar MySQL no se colocó una contraseña, no se coloca nada cuando pide la contraseña, solo debes darle enter y podrás entrar.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Actualizar para poder descargar</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>apt update</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>apt upgrade</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Si nos sale el siguiente error “Can’t connect to local MySQL server”, debemos activar a MySQL de la siguiente forma:</p>
+</div>
+</div>
+</div>
+</section>
+<section id="posible-error-de-inactividad" class="level2">
+<h2 class="anchored" data-anchor-id="posible-error-de-inactividad">Posible Error de inactividad</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comando para verificar si MySQL esta activo u inactivo</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sudo systemctl status mysql</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comnado para activar MySQL</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>sudo systemctl start mysql</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="instalación-de-worbeench" class="level2">
 <h2 class="anchored" data-anchor-id="instalación-de-worbeench">Instalación de Worbeench</h2>
 <p>Para eso debemos buscar a “Ubuntu software”, la tienda de aplicaciones. Y buscamos “workbeench” para descargar MySQL Workbeench Community e instalamos.</p>
 <p>Una vez instalado, debemos ingresar en la parte de “Permisos”, para darle permiso de leer, agregar, cambiar, o remover contraseñas.</p>
 <p><img src="..\images/workbeench.png" class="work-image img-fluid" alt="Worbeench"></p>
-<p>Una vez instalado, volvemos a la terminal en modo super usuario:</p>
+<p>Una vez instalado MySQL, volvemos a la terminal en modo super usuario:</p>
 </section>
 <section id="configuración-para-mysql" class="level2">
 <h2 class="anchored" data-anchor-id="configuración-para-mysql">Configuración para MySQL</h2>
@@ -327,7 +348,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>);</span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comando para visualizar la tabla completa</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>select * from simulations;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>select * from simulations;</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comando para salir de MySQL</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>quit;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">

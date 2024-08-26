@@ -204,7 +204,7 @@
     "href": "include/bd.html#instalación-de-mysql-en-linux",
     "title": "Configuración de la base de datos",
     "section": "Instalación de MySQL en Linux",
-    "text": "Instalación de MySQL en Linux\nAbre una nueva terminal, e ingresar lo siguiente:\n## Comando para instalar mysql\nsudo apt-get install mysql-server\n\n## comando para verificar la instalación\nmysql --version",
+    "text": "Instalación de MySQL en Linux\nAbre una nueva terminal, e ingresar lo siguiente:\n## Comando para actualizar los paquetes\nsudo apt-get update\n\nsudo apt-get upgrade\n\n## Comando para instalar mysql\nsudo apt-get install mysql-server\n\n## comando para verificar la instalación\nmysql --version",
     "crumbs": [
       "Base de datos"
     ]
@@ -214,7 +214,17 @@
     "href": "include/bd.html#acceder-a-mysql-desde-la-terminal",
     "title": "Configuración de la base de datos",
     "section": "Acceder a MySQL desde la terminal",
-    "text": "Acceder a MySQL desde la terminal\n## Entramos al super usuario\nsudo su\n\n## Ingresar a MySQL\nmysql -u root -p\nComo al instalar MySQL no se colocó una contraseña, no se coloca nada cuando pide la contraseña, solo debes darle enter y podrás entrar.\n## Actualizar para poder descargar\napt update\napt upgrade",
+    "text": "Acceder a MySQL desde la terminal\n## Entramos al super usuario\nsudo su\n\n## Ingresar a MySQL\nmysql -u root -p\nComo al instalar MySQL no se colocó una contraseña, no se coloca nada cuando pide la contraseña, solo debes darle enter y podrás entrar.\n\n\n\n\n\n\nSi nos sale el siguiente error “Can’t connect to local MySQL server”, debemos activar a MySQL de la siguiente forma:",
+    "crumbs": [
+      "Base de datos"
+    ]
+  },
+  {
+    "objectID": "include/bd.html#posible-error-de-inactividad",
+    "href": "include/bd.html#posible-error-de-inactividad",
+    "title": "Configuración de la base de datos",
+    "section": "Posible Error de inactividad",
+    "text": "Posible Error de inactividad\n## Comando para verificar si MySQL esta activo u inactivo\nsudo systemctl status mysql\n\n## Comnado para activar MySQL\nsudo systemctl start mysql",
     "crumbs": [
       "Base de datos"
     ]
@@ -224,7 +234,7 @@
     "href": "include/bd.html#instalación-de-worbeench",
     "title": "Configuración de la base de datos",
     "section": "Instalación de Worbeench",
-    "text": "Instalación de Worbeench\nPara eso debemos buscar a “Ubuntu software”, la tienda de aplicaciones. Y buscamos “workbeench” para descargar MySQL Workbeench Community e instalamos.\nUna vez instalado, debemos ingresar en la parte de “Permisos”, para darle permiso de leer, agregar, cambiar, o remover contraseñas.\n\nUna vez instalado, volvemos a la terminal en modo super usuario:",
+    "text": "Instalación de Worbeench\nPara eso debemos buscar a “Ubuntu software”, la tienda de aplicaciones. Y buscamos “workbeench” para descargar MySQL Workbeench Community e instalamos.\nUna vez instalado, debemos ingresar en la parte de “Permisos”, para darle permiso de leer, agregar, cambiar, o remover contraseñas.\n\nUna vez instalado MySQL, volvemos a la terminal en modo super usuario:",
     "crumbs": [
       "Base de datos"
     ]
